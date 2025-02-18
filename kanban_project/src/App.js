@@ -1,41 +1,49 @@
 import './App.css';
 import { useState } from 'react';
-import TaskList from '/Users/ahmedijaz/Documents/react_projects/kanban_project/src/taskList.jsx'
+import TaskList from './taskList'
+import AddTask from './addTask';
 
 function App() {
-  return (
-    <>
-      <h1>03- The Task Tracker</h1>
-      <h2>Hi There</h2>
-      <h2>Click <button>+ New</button> to add a new task</h2>
-      
-      <Board />
-    </>
-  );
+  return <Board />;
 }
 
 export default App;
 
 
 
-
-
 function Board() {
-  const [tasks, setTasks] = useState([{title:'Major Tasks at Hand',desc:'Learn REACT',status:'incomplete'},{title:'Minor Tasks at Hand',desc:'Learn CSS',status:'completed'}]);
+  const [tasks, setTasks] = useState([]);
+
+  function handleNewTask(task) {
+    setTasks((prevTasks) => [...prevTasks, task]); // Use prevTasks to update state correctly
+  }
+
+  function handleDeleteTask(title) {
+    setTasks(tasks.filter((task) => task.title !== title)); // Remove the correct task
+  }
+
+  function handleEditTask(title, desc, status) {
+    const newTasks = tasks.map((task) =>
+      task.title === title ? { ...task, desc, status } : task
+    );
+    setTasks(newTasks);
+  }
+
   return (
     <>
-      <div>
-        <div>
+      <h1>03- The Task Tracker</h1>
+      <h2>Click <AddTask addTaskFunc={handleNewTask} /> to add a new task</h2>
+      <div id='task-lists-container'>
+        <div className='' >
           <h2>To Do</h2>
+          <TaskList tasks={tasks.filter((task) => task.status === 'incomplete')} />
         </div>
-        <TaskList tasks={tasks.filter((task)=> task.status === 'incomplete')} />
-      </div>
-      <div>
+
         <div>
           <h2>Completed</h2>
+          <TaskList tasks={tasks.filter((task) => task.status === 'completed')} />
         </div>
-        <TaskList tasks={tasks.filter((task)=> task.status === 'completed')} />
       </div>
     </>
-  )
+  );
 }

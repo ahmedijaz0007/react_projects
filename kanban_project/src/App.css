@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+*{
+  padding: 0;
+}
+
+
+#task-lists-container{
+  display:flex;
+  column-gap: 50px;
+
+}
+
+#task-lists-container ul{
+  list-style-type: none;
+
+
+}
+

@@ -32,8 +32,8 @@ export default function Timer() {
           <span>{"0" + (Math.floor(time / 60000) % 60) + ":"}</span>
           <span>{"0" + (Math.floor(time / 1000) % 60) + ":"}</span>
           <span>{"0" + (Math.floor(time / 10) % 100)}</span>
-          <button onClick={handleStart}>Start</button>
-          <button onClick={handleStop}>Stop</button>
+          <button hidden={isRunning} onClick={handleStart}>Start</button>
+          <button hidden={!isRunning} onClick={handleStop}>Stop</button>
           <button onClick={handleReset}>Reset</button>
         </>
       )
