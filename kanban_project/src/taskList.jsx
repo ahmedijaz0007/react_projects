@@ -1,18 +1,28 @@
-import Timer from '/Users/ahmedijaz/Documents/react_projects/kanban_project/src/timer.jsx'
+import Timer from './timer.jsx'
+import EditTask from './editTask'
+import { useState } from 'react';
 
 
-function TaskItem({task}) {
-    return (<div>
+
+function TaskItem({task,handleDeleteTask,handleEditTask}) {
+    const [taskItem,setTaskItem] = useState(task)
+    const handleTaskItem =(task)=>{
+        setTaskItem(task)
+    }
+
+    return (<div className='task-container'>
+        <div className='task-header'>
       <h3>{task.title}</h3>
-      <button>Edit</button>
-      <h4>{task.desc}</h4>
+      <EditTask task={taskItem} handleEditTask={handleEditTask} handleTaskItem={handleTaskItem}/>
+      </div>
+      <h4>{taskItem.desc}</h4>
       <Timer />
-      <button>Delete</button>
+      <button onClick={handleDeleteTask}>Delete</button>
     </div>);
   }
   
   
-  export default function TaskList({ tasks }) {
+  export default function TaskList({ tasks ,handleDeleteTask,handleEditTask }) {
     if (!tasks || tasks.length === 0) {
         return <p>No tasks available.</p>;  // Fallback UI
       }
@@ -21,7 +31,7 @@ function TaskItem({task}) {
       <ul>
         {tasks.map((task, index) => (
           <li key={index}>
-            <TaskItem task={task} />
+            <TaskItem  handleEditTask={handleEditTask} handleDeleteTask={handleDeleteTask} task={task} />
           </li>
         ))}
       </ul>

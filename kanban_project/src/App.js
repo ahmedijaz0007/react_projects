@@ -22,9 +22,11 @@ function Board() {
     setTasks(tasks.filter((task) => task.title !== title)); // Remove the correct task
   }
 
-  function handleEditTask(title, desc, status) {
+
+ 
+  function handleEditTask(title, newDesc) {
     const newTasks = tasks.map((task) =>
-      task.title === title ? { ...task, desc, status } : task
+      task.title === title ? { ...task, newDesc } : task
     );
     setTasks(newTasks);
   }
@@ -36,12 +38,12 @@ function Board() {
       <div id='task-lists-container'>
         <div className='' >
           <h2>To Do</h2>
-          <TaskList tasks={tasks.filter((task) => task.status === 'incomplete')} />
+          <TaskList handleEditTask={handleEditTask} handleDeleteTask={handleDeleteTask} tasks={tasks.filter((task) => task.status === 'incomplete')} />
         </div>
 
         <div>
           <h2>Completed</h2>
-          <TaskList tasks={tasks.filter((task) => task.status === 'completed')} />
+          <TaskList  handleEditTask={handleEditTask} handleDeleteTask={handleDeleteTask} tasks={tasks.filter((task) => task.status === 'completed')} />
         </div>
       </div>
     </>
